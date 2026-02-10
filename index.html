@@ -229,19 +229,24 @@
         let noClickCount = 0;
         let currentYesSize = 1;
 
+        // Constants for animation timing
+        const MIN_FALL_DURATION = 2;
+        const FALL_DURATION_RANGE = 3;
+        const HEART_CLEANUP_DELAY = 5000;
+
         // Create falling hearts
         function createHeart() {
             const heart = document.createElement('div');
             heart.className = 'heart';
             heart.textContent = '❤️';
             heart.style.left = Math.random() * 100 + '%';
-            heart.style.animationDuration = (Math.random() * 3 + 2) + 's';
+            heart.style.animationDuration = (Math.random() * FALL_DURATION_RANGE + MIN_FALL_DURATION) + 's';
             heart.style.animationDelay = Math.random() * 2 + 's';
             heartsContainer.appendChild(heart);
 
             setTimeout(() => {
                 heart.remove();
-            }, 5000);
+            }, HEART_CLEANUP_DELAY);
         }
 
         // Create hearts periodically
@@ -268,7 +273,6 @@
             // Make Yes button bigger
             currentYesSize += 0.2;
             yesBtn.style.transform = `scale(${currentYesSize})`;
-            yesBtn.style.padding = `${15 * currentYesSize}px ${30 * currentYesSize}px`;
         });
 
         // Close celebration on click
